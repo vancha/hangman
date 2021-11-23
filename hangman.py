@@ -19,28 +19,47 @@ hangmanfont = pygame.font.SysFont('Comic Sans MS', FONT_SIZE)
 #6: left-leg
 #7: right-leg
 lines = [
-        #start of vertical beam, the "pole"
-        ((WIDTH / 3,HEIGHT / 6),
-        ((WIDTH / 3)+10,HEIGHT / 6),
-        ((WIDTH / 3)+10,(HEIGHT / 6)*5),
-        (WIDTH / 3,(HEIGHT / 6)*5),
-        (WIDTH / 3,HEIGHT / 6),
-        ((WIDTH / 3)+10,HEIGHT / 6),
-        ((WIDTH / 3)*2,HEIGHT / 6),
-        ((WIDTH / 3)*2,(HEIGHT / 6)+10),
-        ((WIDTH / 3)+10,(HEIGHT / 6)+10),
-        ((WIDTH / 3)+10,HEIGHT / 6)),
-        
-        
-            ((20,20),(20,30),(30,30),(30,20)),
-            
-            ((20,20),(20,30),(30,30),(30,20)),
-            
-            ((20,20),(20,30),(30,30),(30,20)),
-            
-            ((20,20),(20,30),(30,30),(30,20)),
-            
-            ((20,20),(20,30),(30,30),(30,20)),
+        (
+            (WIDTH / 3,HEIGHT / 6),#start of vertical beam, the "pole"
+            ((WIDTH / 3)+10,HEIGHT / 6),
+            ((WIDTH / 3)+10,(HEIGHT / 6)*5),
+            (WIDTH / 3,(HEIGHT / 6)*5),
+            (WIDTH / 3,HEIGHT / 6),
+            ((WIDTH / 3)+10,HEIGHT / 6),
+            ((WIDTH / 3)*2,HEIGHT / 6),
+            ((WIDTH / 3)*2,(HEIGHT / 6)+10),
+            ((WIDTH / 3)+10,(HEIGHT / 6)+10),
+            ((WIDTH / 3)+10,HEIGHT / 6),
+            ((WIDTH / 3)*2,(HEIGHT / 6)+10),
+            ((WIDTH / 3)*2,(HEIGHT / 6)*2),
+            ((WIDTH / 3)*2,(HEIGHT / 6)*2),
+            ((WIDTH / 3)*2,(HEIGHT / 6)+10),
+            ((WIDTH / 3)*2,(HEIGHT / 6)+10)
+        ),
+        (
+            ((WIDTH / 3)*2 - 10,(HEIGHT / 6)*2-10),#start of little square head
+            ((WIDTH / 3)*2 + 10,(HEIGHT / 6)*2-10),
+            ((WIDTH / 3)*2+ 10,(HEIGHT / 6)*2+10),
+            ((WIDTH / 3)*2 - 10,(HEIGHT / 6)*2+10),
+         ),
+        (
+            ((WIDTH / 3)*2-1,(HEIGHT / 6)*2+10),#little body starts here
+            ((WIDTH / 3)*2+1,(HEIGHT / 6)*2+10),
+            ((WIDTH / 3)*2+1,(HEIGHT / 6)*2+50),
+            ((WIDTH / 3)*2-1,(HEIGHT / 6)*2+50),
+        ),
+        (
+            ((WIDTH / 3)*2-1,(HEIGHT / 6)*2+10),#left arm starts here
+            ((WIDTH / 3)*2-1,(HEIGHT / 6)*2+20),
+            ((WIDTH / 3)*2-20,(HEIGHT / 6)*2-20),
+            ((WIDTH / 3)*2-20,(HEIGHT / 6)*2-20),
+        ),
+        (
+            ((WIDTH / 3)*2-1,(HEIGHT / 6)*2+10),#right arm starts here
+            ((WIDTH / 3)*2-1,(HEIGHT / 6)*2+20),
+            ((WIDTH / 3)*2+20,(HEIGHT / 6)*2-20),
+            ((WIDTH / 3)*2+20,(HEIGHT / 6)*2-20),
+        ),
             
             ((20,20),(20,30),(30,30),(30,20))]
 
@@ -77,13 +96,16 @@ class hangman():
         return temp
     
     def show_progress(self):
-        textsurface = hangmanfont.render(self.get_progress(), False, (255, 255, 255))
+        textsurface = hangmanfont.render(self.get_progress() + ' '*5 + str(self.wrong_guesses), False, (255, 255, 255))
         screen.blit(textsurface,(WIDTH/3,HEIGHT-40))
         
 h = hangman('baguette')
+h.draw()
+pygame.display.update()
 while not h.is_game_over() and not h.is_game_won():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            #print('pew pew')
             run = False
         if event.type == pygame.KEYDOWN:
             screen.fill((0,0,0))
